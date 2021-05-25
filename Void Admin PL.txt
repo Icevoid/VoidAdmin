@@ -1,0 +1,165 @@
+--[[ Notifications ]]--
+
+game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "Welcome to Void's PL Admin, Type -cmds on the textBox to see all the commands. Enjoy!"; Color = Color3.fromRGB(1,1,255)})
+
+--[[ Settings ]]--
+
+local Prefix = "-"
+
+Cmds = {
+	"----------LocalPlayer Commands----------",
+	" ",
+	Prefix.."Cmds - Shows the list of commands.",
+	" ",
+	Prefix.."Printcmds - Prints the list of commands",
+	" ",
+	Prefix.."Guns - Gives you guns.",
+	" ",
+	Prefix.."Re - Respawns your characer.",
+	" ",
+	"----------Teleports----------",
+	" ",
+	Prefix.."Nex - Teleports you to nexus.",
+	" ",
+	Prefix.."Cells - Teleports you to cells.",
+	" ",
+	Prefix.."Back - Telports you to back area.",
+	" ",
+	Prefix.."Roof - Teleports you to roof.",
+	" ",
+	Prefix.."Tow - Teleports you to tower.",
+	" ",
+	Prefix.."Yard - Teleports you to yard.",
+	" ",
+	Prefix.."Caf - Teleports you to cafeteria.",
+	" ",
+	"----------Server----------",
+	" ",
+	Prefix.."Nodoors - Destroys doors, cant be undone.",
+	" ",
+	"Made By Icevoid#9980 / Icevo1d",
+	"---------------------------------------------------"
+}
+
+
+local VAGui = Instance.new("ScreenGui")
+local VAFrame = Instance.new("Frame")
+local VATextBox = Instance.new("TextBox")
+VAGui.Name = "VAGui"
+VAGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+VAFrame.Name = "VAFrame"
+VAFrame.Parent = VAGui
+VAFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+VAFrame.BackgroundTransparency = 0.300
+VAFrame.Position = UDim2.new(0.42609489, 0, 0.0776892453, 0)
+VAFrame.Size = UDim2.new(0, 214, 0, 48)
+VAFrame.Active = true
+VAFrame.Draggable = true
+VATextBox.Name = "VATextBox"
+VATextBox.Parent = VAFrame
+VATextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+VATextBox.BackgroundTransparency = 0.700
+VATextBox.Position = UDim2.new(0.0306126177, 0, 0.133300141, 0)
+VATextBox.Size = UDim2.new(0, 200, 0, 35)
+VATextBox.Font = Enum.Font.Arial
+VATextBox.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+VATextBox.PlaceholderText = "Enter command here."
+VATextBox.Text = ""
+VATextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+VATextBox.TextSize = 13.000
+
+
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+	if key == Prefix then
+		VATextBox:CaptureFocus()
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-cmds" then
+		for i,v in pairs(Cmds) do
+			game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = v; Font = Enum.Font.Arial; FontSize = Enum.FontSize.Size10;})
+		end
+	end
+end)
+
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-re" then
+		local Pos = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").position
+		wait()
+		local plr = game.Players.LocalPlayer.Name
+		game:GetService("Workspace").Remote.loadchar:InvokeServer(plr)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Pos)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-guns" then
+		if (game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId, 96651)) then
+			game.Workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
+		else
+			game.Workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP) 
+			game.Workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+			game.Workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+		end
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-printcmds" then
+		for i,v in pairs(Cmds) do
+			print(v)
+		end
+	end
+end)
+
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-nex" then
+	   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(917.068665, 99.9900055, 2390.58325)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-cells" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(916.889038, 99.9899902, 2482.09082)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-caf" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(954.009399, 99.9899597, 2254.30933)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-yard" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(794.974548, 98.1899414, 2543.30493)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-back" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(984.309937, 99.9900055, 2265.07739)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-tow" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(790.069092, 125.03994, 2588.05908)
+	end
+end)
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-roof" then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(828.155457, 118.990005, 2353.29956)
+	end
+end)
+
+
+VATextBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and VATextBox.Text == "-nodoors" then
+		game.Workspace.Doors:Destroy()
+	end
+end)
